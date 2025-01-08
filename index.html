@@ -1,22 +1,360 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Testing Time</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2verify - DNIe Verification Made Simple</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta property="og:image" content="https://2verify.co/favicon.png">
+    <meta name="description" content="Skip asking users for selfie videos and ID uploads—verify instantly with eID digital signatures, backed by government-grade PKI. Fast, secure identity verification for Spanish DNIe.">
+   
+    <meta name="keywords" content="DNIe verification, eID verification, digital identity, Spain identity verification, electronic ID, digital signatures, PKI verification">
+   
+    <meta property="og:locale" content="es_ES">
+    <link rel="alternate" href="https://2verify.com/en" hreflang="en">
+    <link rel="alternate" href="https://2verify.com/es" hreflang="es">
+
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <script src="https://www.waitforit.me/waitlistV3.bundle.js" async></script>
+<link rel="stylesheet" type="text/css" href="https://www.waitforit.me/wfiEmbedStyles.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 5rem; /* Add padding for fixed navbar */
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            opacity: 0;
+            visibility: hidden;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        #menu-toggle:checked ~ nav .mobile-menu {
+            max-height: 400px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        main {
+            transition: padding-top 0.3s ease-in-out;
+        }
+
+        #menu-toggle:checked ~ main {
+            padding-top: 18rem;
+        }
+
+        nav {
+            position: fixed;
+            width: 100%;
+            z-index: 50;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 h-screen flex flex-col items-center justify-center p-4">
-    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center space-y-4">
-        <div class="text-3xl font-mono text-gray-800">
-            console.log("I'm alive! 🚀");
+<body class="min-h-screen bg-black">
+    <div 
+    id="waitlistModal" 
+    class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center py-2 px-4 sm:px-6 md:px-8"
+>
+    <div class="bg-neutral-400/90 backdrop-blur-2xl text-gray-800 rounded-2xl shadow-2xl w-auto relative border border-white/20">
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between p-4 border-b border-gray-200/30">
+            <h2 class="text-2xl font-bold text-gray-800">
+                Join The Waitlist
+            </h2>
+            <button 
+                id="closeModalBtn" 
+                class="text-gray-600 hover:text-gray-800 transition-colors duration-200 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-offset-2"
+                aria-label="Close modal"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
         </div>
-        <div class="text-sm text-gray-500 font-mono">
-            > Running on GitHub Pages
-        </div>
-        <div class="flex justify-center gap-2">
-            <span class="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">status: 200</span>
-            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">deploy: ok</span>
+
+        <!-- Modal Content -->
+        <div class="p-6">
+            <div 
+                id="waitforit-embed" 
+                class="relative z-10" 
+                data-project-id="4b83b967-213c-4917-9da5-d6a8a3922bdf"
+            >
+                <!-- Dynamic embed content goes here -->
+            </div>
         </div>
     </div>
+</div>
+
+
+    <!-- Hidden checkbox for menu toggle -->
+    <input type="checkbox" id="menu-toggle" class="hidden">
+
+    <!-- Navigation -->
+    <nav class="bg-black/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header Content -->
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="font-extrabold text-2xl tracking-tight text-indigo-400">2verify</div>
+    
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#how-it-works" class="text-lg font-medium text-gray-100 hover:text-gray-300 transition-colors duration-200">How it Works</a>
+                    <!--a href="#" class="text-lg font-medium text-gray-100 hover:text-gray-300 transition-colors duration-200">Benefits</a>
+                    <a href="#" class="text-lg font-medium text-gray-100 hover:text-gray-300 transition-colors duration-200">Pricing</a-->
+                </div>
+    
+                <!-- Desktop CTA -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#"  class="open-modal-btn px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-lg text-white font-medium hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-indigo-500/20">
+                        Join Waitlist
+                    </a>
+                </div>
+    
+                <!-- Mobile Menu Button -->
+                <label for="menu-toggle" class="md:hidden text-gray-400 hover:text-white cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </label>
+            </div>
+    
+            <!-- Mobile Menu -->
+            <div class="mobile-menu md:hidden">
+                <div class="px-4 py-4 space-y-4 bg-black/95 backdrop-blur-xl border-t border-white/5">
+                    <a href="#how-it-works" class="block px-4 py-3 text-lg font-medium text-gray-100 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200">
+                        How it Works
+                    </a>
+                    <!--a href="#" class="block px-4 py-3 text-lg font-medium text-gray-100 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200">
+                        Benefits
+                    </a>
+                    <a href="#" class="block px-4 py-3 text-lg font-medium text-gray-100 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200">
+                        Pricing
+                    </a-->
+                    <div class="pt-4">
+                        <a href="#"  class="open-modal-btn block px-4 py-3 text-center bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-lg text-white font-medium hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-indigo-500/20">
+                            Join Waitlist
+                        </a>
+                    </div>
+                </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="pt-28 pb-11">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/5 text-gray-300 text-sm font-medium mb-8 border border-white/10 shadow-lg">
+                        <span class="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                        Rolling Soon in Spain
+                    </div>
+                    <h1 class="text-6xl font-bold tracking-tight text-white sm:text-7xl mb-8">
+                        Instant Identity Verification 
+                        <span class="bg-gradient-to-r from-indigo-400 to-indigo-600 text-transparent bg-clip-text">Powered by eIDs</span>
+                    </h1>
+                    <p class="text-lg text-gray-400 mb-10 leading-relaxed font-bold">
+                        Skip asking users for selfie videos and ID uploads—verify instantly with eID digital signatures, backed by government-grade PKI.
+                    </p>
+                </div>
+
+                <!-- Video Demo Section -->
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-indigo-600/20 rounded-3xl blur-3xl"></div>
+                    <div class="relative bg-black/40 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
+                        <video 
+                            class="w-full h-full object-cover rounded-2xl"
+                            controls
+                            autoplay
+                            muted
+                            playsinline
+                            loop
+                            src="vid.mp4"
+                        >
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="absolute bottom-2 right-4 text-xs text-gray-400">
+                            Credit: Signicat
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How it Works Section -->
+        <div id="how-it-works" class="mx-auto max-w-7xl px-6 lg:px-8 mt-32">
+            <h3 class="mb-11 text-4xl font-extrabold text-neutral-100">How It Works</h3>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Main Content Column -->
+                <article class="rounded-2xl bg-neutral-950 p-8 backdrop-blur-sm max-w-3xl mx-auto">
+                    <p class="mb-8 text-lg leading-relaxed text-neutral-300">
+                        2verify gets its name from the dual authentication factors that make it secure: your user's DNIe card and your user's DNIe PIN. 
+                        <span class="relative inline-block group">
+                            <span class="border-b border-dashed border-gray-500">Government-grade security in one seamless flow</span>
+                            <span class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-neutral-200 text-gray-900 text-xs rounded py-1 px-2 whitespace-nowrap">Powered by Spain's national PKI infrastructure</span>
+                        </span>
+                    </p>
+                    <div class="space-y-4">
+                        <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
+                            <div class="flex-1">
+                                <span class="block text-neutral-200 font-medium mb-1">Integrate with one line </span>
+                                <span class="text-sm text-neutral-400">Add our SDK to your app or simply a link on your site, and trigger verification with a single function call</span>
+                            </div>
+                            <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+                        </div>
+                        <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
+                            <div class="flex-1">
+                                <span class="block text-neutral-200 font-medium mb-1">User taps their DNIe</span>
+                                <span class="text-sm text-neutral-400">Works with any NFC-enabled phone, no card reader or extra apps needed</span>
+                            </div>
+                            <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+                        </div>
+                        <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
+                            <div class="flex-1">
+                                <span class="block text-neutral-200 font-medium mb-1">Secure PIN verification</span>
+                                <span class="text-sm text-neutral-400">PIN unlocks the private key stored in the DNIe chip for digital signature</span>
+                            </div>
+                            <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+                        </div>
+                        <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
+                            <div class="flex-1">
+                                <span class="block text-neutral-200 font-medium mb-1">Instant verification</span>
+                                <span class="text-sm text-neutral-400">Get verified identity details in real-time via webhook</span>
+                            </div>
+                            <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Lottie Animation Column -->
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-indigo-600/10 rounded-3xl blur-3xl"></div>
+                    <div class="relative  rounded-2xl h-full  overflow-hidden flex items-center justify-center">
+                        <div id="lottie-container" class="w-full h-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Info Box -->
+            <div class="mt-16 bg-gradient-to-r from-indigo-600/10 to-indigo-700/10 backdrop-blur-xl rounded-2xl p-8 border border-indigo-500/20">
+                <div class="flex flex-col md:flex-row items-start justify-between gap-8">
+                    <div class="text-left w-full">
+                        <h3 class="text-2xl font-bold text-white mb-2">Be first to try it out</h3>
+                        <p class="text-gray-400">Join our waitlist for early access and special launch pricing</p>
+                    </div>
+                    <a href="#" class="open-modal-btn w-full md:w-auto px-8 py-4 bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-xl text-white font-medium hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-indigo-500/20 whitespace-nowrap text-center">
+                        Join Waitlist
+                    </a>
+                </div>
+             </div>
+        </div>
+    </main>
+    <footer class="border-t border-white/5 py-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="font-extrabold text-xl tracking-tight text-indigo-400">2verify</div>
+                <div class="text-gray-500">© 2025</div>
+            </div>
+        </div>
+    </footer>
+    <script>
+    // First create Lucide icons
+if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+}
+
+// Handle mobile menu link clicks
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileLinks = document.querySelectorAll('.mobile-menu a[href^="#"]');
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href').slice(1);
+            const targetElement = document.getElementById(targetId);
+            
+            // Calculate extra offset when menu is open (approximately the height of the mobile menu)
+            const extraOffset = 300; // Increased offset to better show the header
+            
+            // Scroll to element with extra offset
+            window.scrollTo({
+                top: targetElement.offsetTop - extraOffset,
+                behavior: 'smooth'
+            });
+            
+            // Close the mobile menu
+            menuToggle.checked = false;
+        });
+    });
+});
+
+// Then initialize Lottie with error handling
+try {
+    const anim = lottie.loadAnimation({
+        container: document.getElementById('lottie-container'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/lottie.json',
+        onError: (error) => {
+            console.error('Lottie animation error:', error);
+        }
+    });
+
+    anim.addEventListener('data_failed', () => {
+        console.error('Failed to load animation data');
+    });
+
+    anim.addEventListener('DOMLoaded', () => {
+        console.log('Animation loaded successfully');
+    });
+} catch (error) {
+    console.error('Error initializing Lottie:', error);
+}
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('waitlistModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const menuToggle = document.getElementById('menu-toggle');
+            
+            // Select all elements with the class to open the modal
+            const openModalBtns = document.querySelectorAll('.open-modal-btn');
+            
+            // Add click event to all modal open buttons
+            openModalBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modal.classList.remove('hidden');
+                    // If this button is in the mobile menu, close the menu
+                    if (btn.closest('.mobile-menu')) {
+                        menuToggle.checked = false;
+                    }
+                });
+            });
+        
+            // Close modal when clicking close button
+            closeModalBtn.addEventListener('click', function() {
+                modal.classList.add('hidden');
+            });
+        
+            // Close modal when clicking outside of modal content
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        }); // Added closing brace here
+    </script>
 </body>
 </html>
