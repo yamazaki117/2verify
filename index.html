@@ -6,9 +6,9 @@
     <title>Visare - KYC Verification Made Simple</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <meta property="og:image" content="https://visare.co/fav.png">
-    <meta name="description" content="Verify identity and access government-verified data in one click with Cl@ve integration. Fast, secure KYC verification for Spanish residents.">
+    <meta name="description" content="Verify identity and access government-verified data in one click with Cl@ve OIDC integration. Fast, secure KYC verification for Spanish residents.">
    <meta name="google-site-verification" content="txaSMfNVf3kVWRFA71U_O1VPPeFPT6yomK6RiYKtHJE" />
-    <meta name="keywords" content="Cl@ve verification, KYC verification, digital identity, Spain identity verification, electronic ID, digital signatures, government data">
+    <meta name="keywords" content="Cl@ve verification, KYC verification, digital identity, Spain identity verification, electronic ID, digital signatures, government data, OIDC">
 
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://visare.co/">
@@ -135,7 +135,8 @@
         </div>
 
         <!-- Modal Content -->
-        <div class="p-6">
+        <div class="p-6 ">
+     
             <div 
                 id="waitforit-embed" 
                 class="relative z-10" 
@@ -206,7 +207,7 @@
 
     <!-- Hero Section -->
     <main class="pt-32 pb-11">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-6xl px-6 lg:px-4">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
                 <!-- Left column with content -->
                 <div class="flex flex-col justify-between h-full">
@@ -216,7 +217,7 @@
                             <span class="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
                             Rolling Soon Globally
                         </div>
-                        <h1 class="text-6xl font-bold tracking-tight text-white sm:text-7xl mb-8">
+                        <h1 class="text-6xl font-bold tracking-tight text-white sm:text-6xl mb-8">
                             <a href="https://clave.gob.es/" target="_blank"><img src="clave.svg" alt="Cl@ve logo" class="inline h-16 w-auto "></a>
     
                             
@@ -229,7 +230,8 @@
                     <!-- Bottom paragraph - pushed to bottom -->
                     <div class=" pt-6">
                         <p class="text-lg text-gray-400 mb-10 leading-relaxed font-bold ">
-                            Unlock government-verified KYC data for Spanish residents with one click.  Businesses anywhere can now leverage Spain's trusted digital identity system to seamlessly verify Spanish users.
+                            
+                            Unlock government-verified KYC data for Spanish residents with one click.  Businesses anywhere can now leverage Spain's trusted digital identity system using standard <strong class="text-orange-400">OpenID Connect</strong> to seamlessly verify Spanish users.
                         </p>
                     </div>
                 </div>
@@ -245,10 +247,11 @@
         <div class="relative z-10 flex flex-col h-full">
             <!-- Dashboard Header -->
             <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-                <h3 class="text-xl font-bold text-white">Available Data</h3>
-                <div class="bg-[#40FFCE]/15 text-[#40FFCE] px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+<h3 class="text-xl font-bold bg-gradient-to-r from-orange-50 to-emerald-50 bg-clip-text text-transparent">Available Data</h3>                
+<div class=" text-gray-300 px-3 py-1 rounded-full text-xs  flex items-center gap-1">
                     <!--span class="w-2 h-2 bg-[#40FFCE] rounded-full"></span-->
-                    Gov Verified ✓
+                        Data via <span class="text-orange-400 hover:text-orange-300"><a href="https://clave.gob.es/" target="_blank">cl@ve</a>  </span> 
+
                 </div>
             </div>
             
@@ -268,7 +271,7 @@
     </div>
     <div class="dashboard-item p-3 bg-neutral-900/80 rounded-lg cursor-pointer text-center" data-panel="education">
         <i data-lucide="graduation-cap" class="h-6 w-6 mx-auto mb-1 text-white"></i>
-        <span class="text-xs text-white font-medium">Ed.</span>
+        <span class="text-xs text-white font-medium">Education</span>
     </div>
     <div class="dashboard-item p-3 bg-neutral-900/80 rounded-lg cursor-pointer text-center" data-panel="driving">
         <i data-lucide="car" class="h-6 w-6 mx-auto mb-1 text-white"></i>
@@ -441,10 +444,10 @@
             
             <!-- Dashboard Footer - More compact -->
             <div class="mt-3 pt-3 border-t border-white/10 flex justify-between items-center text-gray-400">
-                <div class="text-xs flex items-center gap-1 ">
-                   
-                    Data via <span class="text-orange-400 hover:text-orange-300"><a href="https://clave.gob.es/" target="_blank">Cl@ve</a>  </span> 
-                </div>
+              <div class="text-xs flex items-center gap-1">
+  <i data-lucide="info" class="w-3 h-3"></i>
+  Demo data - not actual records
+</div>
                 <!--div class="bg-[#40FFCE]/15 text-[#40FFCE] px-2 py-0.5 rounded-full text-xs font-medium">
                     Government Verified ✓
                 </div-->
@@ -467,45 +470,39 @@
                 <article class="rounded-2xl bg-neutral-950 p-8 backdrop-blur-sm max-w-3xl mx-auto">
                     <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-900/30 text-indigo-300 text-sm font-medium mb-4 border border-indigo-800/30">
                         <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
-                        Powered by Spain's Cl@ve
+                        Walled SAML to OIDC Bridge
                     </div>
                     <p class="mb-8 text-lg leading-relaxed text-neutral-300">
-                        Visare leverages Spain's Cl@ve system to provide secure, one-click access to government-verified data for KYC processes.
-                        <span class="relative inline-block group">
+Spain's cl@ve system was built only for citizens to access government agencies via SAML authentication. Visare leverages cl@ve's infrastructure to allow private companies to integrate with this government-verified identity data through OIDC—like how Plaid bridged banking APIs.
+
+                        <!--span class="relative inline-block group">
                             <span class="border-b border-dashed border-gray-500">Government-grade security with minimal friction</span>
                             <span class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-neutral-200 text-gray-900 text-xs rounded py-1 px-2 whitespace-nowrap">Powered by Spain's national identity infrastructure</span>
-                        </span>
+                        </span-->
                     </p>
-                    <div class="space-y-4">
-                        <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
-                            <div class="flex-1">
-                                <span class="block text-neutral-200 font-medium mb-1">Simple integration</span>
-                                <span class="text-sm text-neutral-400">Add our SDK to your app or website with minimal code changes</span>
-                            </div>
-                            <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
-                        </div>
-                        <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
-                            <div class="flex-1">
-                                <span class="block text-neutral-200 font-medium mb-1">Users authenticate with Cl@ve</span>
-                                <span class="text-sm text-neutral-400">One click for users who already have Cl@ve activated</span>
-                            </div>
-                            <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
-                        </div>
-                        <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
-                            <div class="flex-1">
-                                <span class="block text-neutral-200 font-medium mb-1">Secure data retrieval</span>
-                                <span class="text-sm text-neutral-400">Access only the specific data you need with user consent</span>
-                            </div>
-                            <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
-                        </div>
-                        <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
-                            <div class="flex-1">
-                                <span class="block text-neutral-200 font-medium mb-1">Instant verification</span>
-                                <span class="text-sm text-neutral-400">Get verified identity and KYC data in real-time via webhook</span>
-                            </div>
-                            <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
-                        </div>
-                    </div>
+                   <div class="space-y-4">
+    <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 ">
+        <div class="flex-1">
+            <span class="block text-neutral-200 font-medium mb-1">OIDC Integration</span>
+            <span class="text-sm text-neutral-400">Standard OAuth 2.0/OIDC flow - integrate like any identity provider</span>
+        </div>
+        <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+    </div>
+    <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
+        <div class="flex-1">
+            <span class="block text-neutral-200 font-medium mb-1">Users authenticate via cl@ve</span>
+            <span class="text-sm text-neutral-400">Seamless experience for over 20 million cl@ve users</span>
+        </div>
+        <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+    </div>
+    <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
+        <div class="flex-1">
+            <span class="block text-neutral-200 font-medium mb-1">Government-verified data</span>
+            <span class="text-sm text-neutral-400">Official identity data with user consent</span>
+        </div>
+        <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+    </div>
+</div>
                 </article>
 
                 <!-- Lottie Animation Column -->
