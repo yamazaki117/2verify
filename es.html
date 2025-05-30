@@ -1,34 +1,47 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visare - Verificación KYC Simplificada</title>
+    <title>visare - cl@ve OIDC</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <meta property="og:image" content="https://visare.co/favicon.png">
-    <meta name="description" content="Verifica identidad y accede a datos verificados por el gobierno con un solo clic mediante integración con Cl@ve. Verificación KYC rápida y segura para residentes españoles.">
-   
-    <meta name="keywords" content="verificación Cl@ve, verificación KYC, identidad digital, verificación de identidad en España, ID electrónico, firmas digitales, datos gubernamentales">
+    <meta property="og:image" content="https://visare.co/fav.png">
+    <meta name="description" content="Verify identity and access government-verified data in one click with Cl@ve OIDC integration. Fast, secure KYC verification for Spanish residents.">
+   <meta name="google-site-verification" content="txaSMfNVf3kVWRFA71U_O1VPPeFPT6yomK6RiYKtHJE" />
+    <meta name="keywords" content="Cl@ve verification, KYC verification, digital identity, Spain identity verification, electronic ID, digital signatures, government data, OIDC">
 
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://visare.co/">
-<meta property="twitter:title" content="Visare - Verificación KYC Simplificada">
-<meta property="twitter:description" content="Verifica identidad y accede a datos verificados por el gobierno con un solo clic mediante integración con Cl@ve.">
-<meta property="twitter:image" content="https://visare.co/favicon.png">
+<meta property="twitter:title" content="visare - cl@ve OIDC">
+<meta property="twitter:description" content="Verify identity and access Spanish government-verified data in one click with cl@ve integration.">
+<meta property="twitter:image" content="https://visare.co/fav.png">
 
     
     <meta property="og:locale" content="es_ES">
     <link rel="alternate" href="https://visare.co/en" hreflang="en">
     <link rel="alternate" href="https://visare.co/es" hreflang="es">
-
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
     <script src="https://www.waitforit.me/waitlistV3.bundle.js" async></script>
 <link rel="stylesheet" type="text/css" href="https://www.waitforit.me/wfiEmbedStyles.css">
 
 <style>
+  .dashboard-item.active {
+    background-color: #03251A !important; /* Dark green background */
+    color: #10B981 !important; /* Green text (using Tailwind's emerald-500 color) */
+    font-weight: bold !important; /* Make text bold */
+  }
+  
+  /* If you want to target specific elements within the active item */
+  .dashboard-item.active i {
+    color: #10B981 !important; /* Green icon */
+  }
+  
+  .dashboard-item.active span {
+    color: #10B981 !important; /* Green label text */
+  }
     html {
         scroll-behavior: smooth;
         scroll-padding-top: 5rem; /* Add padding for fixed navbar */
@@ -40,7 +53,7 @@
         opacity: 0;
         visibility: hidden;
         overflow: hidden;
-        transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
     }
     
     #menu-toggle:checked ~ nav .mobile-menu {
@@ -51,7 +64,7 @@
 
     /* Update the main padding-top to match the value in your HTML */
     main {
-        transition: padding-top 0.5s ease-in-out;
+        transition: padding-top 0.4s ease-in-out;
         padding-top: 5rem; /* This now matches the 5rem (80px) value set in your main element */
     }
 
@@ -95,6 +108,55 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+
+
+        /* Language dropdown styles */
+.language-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.language-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(12px);
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    z-index: 1;
+    margin-top: 4px;
+}
+
+.language-dropdown-content a {
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+    font-size: 14px;
+}
+
+.language-dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.language-dropdown-content a:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.language-dropdown-content a:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.language-dropdown:hover .language-dropdown-content {
+    display: block;
+}
     </style>
 </head>
 <body class="min-h-screen bg-black">
@@ -122,7 +184,8 @@
         </div>
 
         <!-- Modal Content -->
-        <div class="p-6">
+        <div class="p-6 ">
+     
             <div 
                 id="waitforit-embed" 
                 class="relative z-10" 
@@ -139,30 +202,55 @@
     <input type="checkbox" id="menu-toggle" class="hidden">
 
     <!-- Navigation -->
-    <nav class="bg-black/80 backdrop-blur-xl border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header Content -->
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="font-extrabold text-2xl tracking-tight text-indigo-400">visare</div>
+<nav class="bg-black/80 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header Content -->
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo -->
+            <div class="font-extrabold text-2xl tracking-tight text-indigo-400">visare</div>
+
+            <!-- Right side - DEMO + Menu Button on mobile -->
+            <div class="flex items-center space-x-3">
+                  <!-- Language Dropdown -->
+<div class="language-dropdown">
+    <button class="md:hidden px-3 py-1.5 bg-blue-900/20 border border-blue-700/30 rounded-lg text-white font-medium hover:bg-blue-800/30 transition-all duration-200 shadow-lg backdrop-blur-sm flex items-center gap-2">
+        <i data-lucide="languages"></i>
+    </button>
+    <div class="language-dropdown-content">
+        <a href="/">🇺🇸 English</a>
+        <a href="/es">🇪🇸 Español</a>
+    </div>
+</div>
+                <!-- DEMO Button - Left of hamburger on mobile, hidden on desktop -->
+                <a href="https://demo.visare.co" class="md:hidden px-3 py-1.5 bg-white/10 border border-white/20 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 shadow-lg backdrop-blur-sm">
+                    DEMO
+                </a>
+
+                <!-- Desktop CTA - DEMO + Waitlist together -->
+                <!-- Desktop CTA - Language + DEMO + Waitlist together -->
+<div class="hidden md:flex items-center space-x-4">
+    <!-- Language Dropdown -->
+  <!-- Language Dropdown -->
+<div class="language-dropdown">
+    <button class="px-5 py-2.5 bg-blue-900/20 border border-blue-700/30 rounded-lg text-white font-medium hover:bg-blue-800/30 transition-all duration-200 shadow-lg backdrop-blur-sm flex items-center gap-2">
+        <i data-lucide="languages"></i>
+    </button>
+    <div class="language-dropdown-content">
+        <a href="/">🇺🇸 English</a>
+        <a href="/es">🇪🇸 Español</a>
+    </div>
+</div>
+    <!-- DEMO Button for desktop -->
+    <a href="https://demo.visare.co" class="px-5 py-2.5 bg-white/10 border border-white/20 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 shadow-lg backdrop-blur-sm">
+        DEMO
+    </a>
     
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="#how-it-works" class="text-lg font-medium text-gray-100 px-3 py-1 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/5 hover:border-indigo-500/20 transition-all duration-300 hover:text-white shadow-sm hover:shadow">Cómo Funciona</a>                    <!--a href="#data-access" class="text-lg font-medium text-gray-100 hover:text-gray-300 transition-colors duration-200">Data Access</a-->
-                </div>
-                <div class="flex items-center space-x-2 px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/5">
-                    <a href="https://visare.co" class="text-gray-400 hover:text-white transition-colors">EN</a>
-                    <span class="text-indigo-400">|</span>
-                    <a href="https://visare.co/es" class="text-white font-medium">ES</a>
-                </div>
-    
-                <!-- Desktop CTA -->
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="#" class="open-modal-btn px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-lg text-white font-medium hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-indigo-500/20">
-                        Lista de Espera
-                    </a>
-                </div>
-    
+    <!-- Waitlist Button for desktop -->
+    <a href="#" class="open-modal-btn px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-lg text-white font-medium hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-indigo-500/20">
+        Waitlist
+    </a>
+</div>
+
                 <!-- Mobile Menu Button -->
                 <label for="menu-toggle" class="md:hidden text-gray-400 hover:text-white cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -170,28 +258,27 @@
                     </svg>
                 </label>
             </div>
-    
-            <!-- Mobile Menu -->
-            <div class="mobile-menu md:hidden">
-                <div class="px-4 py-4 space-y-4 bg-black/95 backdrop-blur-xl border-t border-white/5">
-                    <a href="#how-it-works" class="block px-4 py-3 text-lg font-medium text-gray-100 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200">
-                        Cómo Funciona
-                    </a>
-                    <!--a href="#data-access" class="block px-4 py-3 text-lg font-medium text-gray-100 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200">
-                        Data Access
-                    </a-->
-                    <div class="pt-4">
-                        <a href="#" class="open-modal-btn block px-4 py-3 text-center bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-lg text-white font-medium hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-indigo-500/20">
-                            Lista de Espera
-                        </a>
-                    </div>
-                </div>
         </div>
-    </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden">
+            <div class="px-4 py-4 space-y-4 bg-black/80 backdrop-blur-xl border-t border-white/5">
+                <a href="#how-it-works" class="block px-4 py-3 text-lg font-medium text-gray-100 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200">
+                    Cómo funciona
+                </a>
+                <div class="pt-4">
+                    <a href="#" class="open-modal-btn block px-4 py-3 text-center bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-lg text-white font-medium hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-indigo-500/20">
+                        Waitlist
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
 
     <!-- Hero Section -->
     <main class="pt-32 pb-11">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-6xl px-6 lg:px-4">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
                 <!-- Left column with content -->
                 <div class="flex flex-col justify-between h-full">
@@ -199,14 +286,14 @@
                     <div>
                         <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/5 text-gray-300 text-sm font-medium mb-8 border border-white/10 shadow-lg">
                             <span class="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                            Próximamente Global
+                            Disponible Pronto
                         </div>
-                        <h1 class="text-6xl font-bold tracking-tight text-white sm:text-7xl mb-8">
+                        <h1 class="text-6xl font-bold tracking-tight text-white sm:text-6xl mb-8">
                             <a href="https://clave.gob.es/" target="_blank"><img src="clave.svg" alt="Cl@ve logo" class="inline h-16 w-auto "></a>
     
                             
                             <span class="bg-gradient-to-r from-indigo-400 to-indigo-600 text-transparent bg-clip-text lg:block inline">
-                                para el Sector Privado
+                                para el sector privado
                             </span>
                         </h1>
                     </div>
@@ -214,14 +301,16 @@
                     <!-- Bottom paragraph - pushed to bottom -->
                     <div class=" pt-6">
                         <p class="text-lg text-gray-400 mb-10 leading-relaxed font-bold ">
-                            Accede a datos KYC verificados por el gobierno  con un solo clic. Empresas de cualquier lugar pueden aprovechar el sistema de identidad digital de las administraciones públicas españolas para verificar múltiples datos de usuarios españoles al instante.                        </p>
+                            
+                            Accede a datos KYC de ciudadanos españoles en un click.  Cualquier organización puede ahora aprovechar el sistema de identidad digital español mediante simple <strong class="text-orange-400">OpenID Connect</strong> para verificar a ciudadanos españoles.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Dashboard Demo Section -->
 <div class="relative">
     <div class="absolute inset-0 bg-gradient-to-r from-[#40FFCE]/20 to-indigo-600/20 rounded-3xl blur-3xl"></div>
-    <div class="relative bg-black/70 backdrop-blur-md rounded-2xl shadow-lg border border-white/10 overflow-hidden p-5">
+    <div class="relative bg-black/95 backdrop-blur-md rounded-sm shadow-lg border border-white/10 overflow-hidden p-5">
         <!-- Very subtle shadow accent -->
         <div class="absolute -inset-1 bg-gradient-to-r from-[#40FFCE]/10 to-indigo-600/10 rounded-2xl blur-sm opacity-30 z-0"></div>
         
@@ -229,43 +318,44 @@
         <div class="relative z-10 flex flex-col h-full">
             <!-- Dashboard Header -->
             <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-                <h3 class="text-xl font-bold text-white">Datos Disponibles</h3>
-                <div class="bg-[#40FFCE]/15 text-[#40FFCE] px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
-                    <span class="w-2 h-2 bg-[#40FFCE] rounded-full"></span>
-                    Integrado con Cl@ve
+<h3 class="text-xl font-bold bg-gradient-to-r from-orange-50 to-emerald-50 bg-clip-text text-transparent">Available Data</h3>                
+<div class=" text-gray-300 px-3 py-1 rounded-full text-xs  flex items-center gap-1">
+                    <!--span class="w-2 h-2 bg-[#40FFCE] rounded-full"></span-->
+                        Data via <span class="text-orange-400 hover:text-orange-300"><a href="https://clave.gob.es/" target="_blank">cl@ve</a>  </span> 
+
                 </div>
             </div>
             
-            <!-- Dashboard Categories - Tighter spacing -->
-            <div class="grid grid-cols-3 gap-2 mb-4">
-                <div class="dashboard-item active p-2 bg-[#40FFCE]/20 rounded-xl cursor-pointer text-center transition-all duration-300 hover:bg-[#40FFCE]/30 hover:scale-105" data-panel="identity">
-                    <i data-lucide="user" class="h-5 w-5 mx-auto mb-1 text-[#40FFCE]"></i>
-                    <span class="text-xs text-white font-medium">Identidad</span>
-                </div>
-                <div class="dashboard-item p-2 bg-[#40FFCE]/15 rounded-xl cursor-pointer text-center transition-all duration-300 hover:bg-[#40FFCE]/30 hover:scale-105" data-panel="address">
-                    <i data-lucide="map-pin" class="h-5 w-5 mx-auto mb-1 text-[#40FFCE]"></i>
-                    <span class="text-xs text-white font-medium">Dirección</span>
-                </div>
-                <div class="dashboard-item p-2 bg-[#40FFCE]/15 rounded-xl cursor-pointer text-center transition-all duration-300 hover:bg-[#40FFCE]/30 hover:scale-105" data-panel="employment">
-                    <i data-lucide="briefcase" class="h-5 w-5 mx-auto mb-1 text-[#40FFCE]"></i>
-                    <span class="text-xs text-white font-medium">Empleo</span>
-                </div>
-                <div class="dashboard-item p-2 bg-[#40FFCE]/15 rounded-xl cursor-pointer text-center transition-all duration-300 hover:bg-[#40FFCE]/30 hover:scale-105" data-panel="education">
-                    <i data-lucide="graduation-cap" class="h-5 w-5 mx-auto mb-1 text-[#40FFCE]"></i>
-                    <span class="text-xs text-white font-medium">Educación</span>
-                </div>
-                <div class="dashboard-item p-2 bg-[#40FFCE]/15 rounded-xl cursor-pointer text-center transition-all duration-300 hover:bg-[#40FFCE]/30 hover:scale-105" data-panel="driving">
-                    <i data-lucide="car" class="h-5 w-5 mx-auto mb-1 text-[#40FFCE]"></i>
-                    <span class="text-xs text-white font-medium">Conducir</span>
-                </div>
-                <div class="dashboard-item p-2 bg-[#40FFCE]/15 rounded-xl cursor-pointer text-center transition-all duration-300 hover:bg-[#40FFCE]/30 hover:scale-105" data-panel="criminal">
-                    <i data-lucide="shield" class="h-5 w-5 mx-auto mb-1 text-[#40FFCE]"></i>
-                    <span class="text-xs text-white font-medium">Antecedentes</span>
-                </div>
-            </div>
+          <!-- Dashboard Categories - Responsive Grid Layout -->
+<div class="grid grid-cols-3 sm:grid-cols-6 gap-1.5 mb-4">
+    <div class="dashboard-item active p-3 bg-neutral-900/80 rounded-lg cursor-pointer text-center" data-panel="identity">
+        <i data-lucide="user" class="h-6 w-6 mx-auto mb-1 text-white"></i>
+        <span class="text-xs text-white font-medium">ID</span>
+    </div>
+    <div class="dashboard-item p-3 bg-neutral-900/80 rounded-lg cursor-pointer text-center" data-panel="address">
+        <i data-lucide="map-pin" class="h-6 w-6 mx-auto mb-1 text-white"></i>
+        <span class="text-xs text-white font-medium">Domicilio</span>
+    </div>
+    <div class="dashboard-item p-3 bg-neutral-900/80 rounded-lg cursor-pointer text-center" data-panel="employment">
+        <i data-lucide="briefcase" class="h-6 w-6 mx-auto mb-1 text-white"></i>
+        <span class="text-xs text-white font-medium">Empleo</span>
+    </div>
+    <div class="dashboard-item p-3 bg-neutral-900/80 rounded-lg cursor-pointer text-center" data-panel="education">
+        <i data-lucide="graduation-cap" class="h-6 w-6 mx-auto mb-1 text-white"></i>
+        <span class="text-xs text-white font-medium">Educación</span>
+    </div>
+    <div class="dashboard-item p-3 bg-neutral-900/80 rounded-lg cursor-pointer text-center" data-panel="driving">
+        <i data-lucide="car" class="h-6 w-6 mx-auto mb-1 text-white"></i>
+        <span class="text-xs text-white font-medium">Permisos</span>
+    </div>
+    <div class="dashboard-item p-3 bg-neutral-900/80 rounded-lg cursor-pointer text-center" data-panel="criminal">
+        <i data-lucide="shield" class="h-6 w-6 mx-auto mb-1 text-white"></i>
+        <span class="text-xs text-white font-medium">Crímen</span>
+    </div>
+</div>
             
             <!-- Data panels - Tighter spacing -->
-            <div class="bg-black/70 rounded-lg p-4 flex-grow border border-white/10">
+            <div class="bg-black/70 rounded-lg p-4 flex-grow ">
                 <div class="data-panel active" id="identity-panel">
                     <div class="flex items-center justify-between mb-2">
                         <h4 class="text-[#40FFCE] font-medium">Verificación de Identidad</h4>
@@ -273,7 +363,7 @@
                     </div>
                     <div class="space-y-1">
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
-                            <span class="text-gray-300">Nombre Completo</span>
+                            <span class="text-gray-300">Nombre/Apellidos</span>
                             <span class="text-white font-medium">María García López</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
@@ -294,7 +384,7 @@
                 
                 <div class="data-panel" id="address-panel">
                     <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-[#40FFCE] font-medium">Información de Dirección</h4>
+                        <h4 class="text-[#40FFCE] font-medium">Información de Domicilio</h4>
                         <span class="text-xs text-[#40FFCE] bg-[#40FFCE]/15 px-2 py-0.5 rounded-full">Verificado</span>
                     </div>
                     <div class="space-y-1">
@@ -320,20 +410,20 @@
                 
                 <div class="data-panel" id="employment-panel">
                     <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-[#40FFCE] font-medium">Situación Laboral</h4>
+                        <h4 class="text-[#40FFCE] font-medium">Estado de Empleo</h4>
                         <span class="text-xs text-[#40FFCE] bg-[#40FFCE]/15 px-2 py-0.5 rounded-full">Verificado</span>
                     </div>
                     <div class="space-y-1">
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
                             <span class="text-gray-300">Estado</span>
-                            <span class="text-white font-medium">Empleado</span>
+                            <span class="text-white font-medium">Empleada</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
                             <span class="text-gray-300">Sector</span>
-                            <span class="text-white font-medium">Tecnología</span>
+                            <span class="text-white font-medium">Technología</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
-                            <span class="text-gray-300">Empleado Desde</span>
+                            <span class="text-gray-300">Empleada desde</span>
                             <span class="text-white font-medium">Marzo 2020</span>
                         </div>
                         <div class="text-center mt-3">
@@ -346,17 +436,17 @@
                 
                 <div class="data-panel" id="education-panel">
                     <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-[#40FFCE] font-medium">Formación Académica</h4>
+                        <h4 class="text-[#40FFCE] font-medium">Historial Educativo</h4>
                         <span class="text-xs text-[#40FFCE] bg-[#40FFCE]/15 px-2 py-0.5 rounded-full">Verificado</span>
                     </div>
                     <div class="space-y-1">
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
-                            <span class="text-gray-300">Título Superior</span>
-                            <span class="text-white font-medium">Máster</span>
+                            <span class="text-gray-300">Titulación más alta</span>
+                            <span class="text-white font-medium">Masters</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
-                            <span class="text-gray-300">Especialidad</span>
-                            <span class="text-white font-medium">Informática</span>
+                            <span class="text-gray-300">Campo</span>
+                            <span class="text-white font-medium">Computer Science</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
                             <span class="text-gray-300">Institución</span>
@@ -372,12 +462,12 @@
                 
                 <div class="data-panel" id="driving-panel">
                     <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-[#40FFCE] font-medium">Carnet de Conducir</h4>
+                        <h4 class="text-[#40FFCE] font-medium">Permiso de Conducir</h4>
                         <span class="text-xs text-[#40FFCE] bg-[#40FFCE]/15 px-2 py-0.5 rounded-full">Verificado</span>
                     </div>
                     <div class="space-y-1">
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
-                            <span class="text-gray-300">Número de Carnet</span>
+                            <span class="text-gray-300">Número del Permiso</span>
                             <span class="text-white font-medium">87654321-B</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
@@ -385,7 +475,7 @@
                             <span class="text-white font-medium">B</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
-                            <span class="text-gray-300">Fecha de Expedición</span>
+                            <span class="text-gray-300">Fecha de emisión</span>
                             <span class="text-white font-medium">15/07/2008</span>
                         </div>
                         <div class="text-center mt-3">
@@ -404,14 +494,14 @@
                     <div class="space-y-1">
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
                             <span class="text-gray-300">Estado</span>
-                            <span class="text-white font-medium">Sin Antecedentes</span>
+                            <span class="text-white font-medium">Sin Antecedentes Penales</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
-                            <span class="text-gray-300">Última Actualización</span>
+                            <span class="text-gray-300">Última actualización</span>
                             <span class="text-white font-medium">03/02/2025</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-white/5">
-                            <span class="text-gray-300">ID Certificado</span>
+                            <span class="text-gray-300">ID del Certificado</span>
                             <span class="text-white font-medium">CR-2025-78941</span>
                         </div>
                         <div class="text-center mt-3">
@@ -425,13 +515,13 @@
             
             <!-- Dashboard Footer - More compact -->
             <div class="mt-3 pt-3 border-t border-white/10 flex justify-between items-center text-gray-400">
-                <div class="text-xs flex items-center gap-1 ">
-                   
-                    Datos vía <span class="text-orange-400 hover:text-orange-300"><a href="https://clave.gob.es/" target="_blank">Cl@ve</a>  </span> 
-                </div>
-                <div class="bg-[#40FFCE]/15 text-[#40FFCE] px-2 py-0.5 rounded-full text-xs font-medium">
-                    Verificados por el gobierno ✓
-                </div>
+              <div class="text-xs flex items-center gap-1">
+  <i data-lucide="info" class="w-3 h-3"></i>
+  Datos de muestra
+</div>
+                <!--div class="bg-[#40FFCE]/15 text-[#40FFCE] px-2 py-0.5 rounded-full text-xs font-medium">
+                    Government Verified ✓
+                </div-->
             </div>
         </div>
     </div>
@@ -440,9 +530,9 @@
 
         
 
-        <!-- How it Works Section -->
+        <!-- Cómo funciona Section -->
         <div id="how-it-works" class="mx-auto mt-32">
-            <h3 class="mb-11 text-4xl font-extrabold text-neutral-100">Cómo Funciona</h3>
+            <h3 class="mb-11 text-4xl font-extrabold text-neutral-100">Cómo funciona</h3>
             
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -451,38 +541,39 @@
                 <article class="rounded-2xl bg-neutral-950 p-8 backdrop-blur-sm max-w-3xl mx-auto">
                     <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-900/30 text-indigo-300 text-sm font-medium mb-4 border border-indigo-800/30">
                         <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
-                        Impulsado por Cl@ve
+                       De SAML restringido a OIDC 
                     </div>
                     <p class="mb-8 text-lg leading-relaxed text-neutral-300">
-                        Visare aprovecha el sistema Cl@ve para proporcionar acceso seguro con un solo clic a datos verificados por el gobierno para procesos KYC.
-                        <span class="relative inline-block group">
-                            <span class="border-b border-dashed border-gray-500">Seguridad de nivel gubernamental con mínima fricción</span>
-                            <span class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-neutral-200 text-gray-900 text-xs rounded py-1 px-2 whitespace-nowrap">Respaldado por la infraestructura nacional de identidad de España</span>
-                        </span>
+El sistema español de cl@ve fue inicialmente diseñado únicamente para que los ciudadanos pudiesen acceder a a las agencias gubernamentales online, medianate SAML. Visare aprovecha la infrastructura existente de cl@ve para permitir a organizaciones privadas verificar datos de sus usuarios mediante OIDC—similar a cómo Plaid atajó las APIs de los bancos.
+
+                        <!--span class="relative inline-block group">
+                            <span class="border-b border-dashed border-gray-500">Government-grade security with minimal friction</span>
+                            <span class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-neutral-200 text-gray-900 text-xs rounded py-1 px-2 whitespace-nowrap">Powered by Spain's national identity infrastructure</span>
+                        </span-->
                     </p>
-                    <div class="space-y-4">
-                        <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
-                            <div class="flex-1">
-                                <span class="block text-neutral-200 font-medium mb-1">Los usuarios se autentican con Cl@ve</span>
-                                <span class="text-sm text-neutral-400">Un clic para usuarios que ya tienen Cl@ve activado</span>
-                            </div>
-                            <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
-                        </div>
-                        <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
-                            <div class="flex-1">
-                                <span class="block text-neutral-200 font-medium mb-1">Recuperación segura de datos</span>
-                                <span class="text-sm text-neutral-400">Accede solo a los datos específicos que necesitas con consentimiento del usuario</span>
-                            </div>
-                            <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
-                        </div>
-                        <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 cursor-pointer">
-                            <div class="flex-1">
-                                <span class="block text-neutral-200 font-medium mb-1">Verificación instantánea</span>
-                                <span class="text-sm text-neutral-400">Obtén datos de identidad y KYC verificados en tiempo real vía webhook</span>
-                            </div>
-                            <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
-                        </div>
-                    </div>
+                   <div class="space-y-4">
+    <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 ">
+        <div class="flex-1">
+            <span class="block text-neutral-200 font-medium mb-1">Integración OIDC</span>
+            <span class="text-sm text-neutral-400">Flujo OAuth 2.0/OIDC estándar - igual que cualquier otro IdP</span>
+        </div>
+        <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+    </div>
+    <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 ">
+        <div class="flex-1">
+            <span class="block text-neutral-200 font-medium mb-1">Los usuarios autentican via cl@ve</span>
+            <span class="text-sm text-neutral-400">Experiencia fluída para los más de 20 millones de usuarios de cl@ve</span>
+        </div>
+        <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+    </div>
+    <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 ">
+        <div class="flex-1">
+            <span class="block text-neutral-200 font-medium mb-1">Datos verificados por el gobierno</span>
+            <span class="text-sm text-neutral-400">Datos de identidad oficial mediante consentimiento de usuario</span>
+        </div>
+        <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+    </div>
+</div>
                 </article>
 
                 <!-- Lottie Animation Column -->
@@ -498,11 +589,11 @@
             <div class="mt-16 bg-gradient-to-r from-indigo-600/10 to-indigo-700/10 backdrop-blur-xl rounded-2xl p-8 border border-indigo-500/20">
                 <div class="flex flex-col md:flex-row items-start justify-between gap-8">
                     <div class="text-left w-full">
-                        <h3 class="text-2xl font-bold text-white mb-2">Sé el primero en probarlo</h3>
-                        <p class="text-gray-400">Únete a nuestra lista de espera para acceso anticipado y precios especiales de lanzamiento</p>
+                        <h3 class="text-2xl font-bold text-white mb-2">Sé de los primeros en probarlo</h3>
+                        <p class="text-gray-400">Únete a nuestra lista de espera para obtener acceso anticipado y precio especial de lanzamiento</p>
                     </div>
                     <a href="#" class="open-modal-btn w-full md:w-auto px-8 py-4 bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-xl text-white font-medium hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-indigo-500/20 whitespace-nowrap text-center">
-                        Unirse a la Lista
+                        Waitlist
                     </a>
                 </div>
              </div>
@@ -518,7 +609,7 @@
                 </a>
             </div>
             <div class="text-gray-500 flex items-center">
-                © 2025 <span class="ml-2 text-xl" aria-label="Bandera Española">🇪🇸</span>
+                © 2025 <span class="ml-2 text-xl" aria-label="Spanish Flag">🇪🇸</span>
             </div>
         </div>
     </div>
@@ -606,19 +697,19 @@ try {
         autoplay: true,
         path: '/lottie.json',
         onError: (error) => {
-            console.error('Error de animación Lottie:', error);
+            console.error('Lottie animation error:', error);
         }
     });
 
     anim.addEventListener('data_failed', () => {
-        console.error('Error al cargar los datos de la animación');
+        console.error('Failed to load animation data');
     });
 
     anim.addEventListener('DOMLoaded', () => {
-        console.log('Animación cargada correctamente');
+        console.log('Animation loaded successfully');
     });
 } catch (error) {
-    console.error('Error al inicializar Lottie:', error);
+    console.error('Error initializing Lottie:', error);
 }
     </script>
     <script>
