@@ -108,6 +108,55 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+
+
+        /* Language dropdown styles */
+.language-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.language-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(12px);
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    z-index: 1;
+    margin-top: 4px;
+}
+
+.language-dropdown-content a {
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+    font-size: 14px;
+}
+
+.language-dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.language-dropdown-content a:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.language-dropdown-content a:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.language-dropdown:hover .language-dropdown-content {
+    display: block;
+}
     </style>
 </head>
 <body class="min-h-screen bg-black">
@@ -162,23 +211,45 @@
 
             <!-- Right side - DEMO + Menu Button on mobile -->
             <div class="flex items-center space-x-3">
+                  <!-- Language Dropdown -->
+<div class="language-dropdown">
+    <button class="md:hidden px-3 py-1.5 bg-blue-900/20 border border-blue-700/30 rounded-lg text-white font-medium hover:bg-blue-800/30 transition-all duration-200 shadow-lg backdrop-blur-sm flex items-center gap-2">
+        <i data-lucide="languages"></i>
+    </button>
+    <div class="language-dropdown-content">
+        <a href="/">🇺🇸 English</a>
+        <a href="/es">🇪🇸 Español</a>
+    </div>
+</div>
                 <!-- DEMO Button - Left of hamburger on mobile, hidden on desktop -->
                 <a href="https://demo.visare.co" class="md:hidden px-3 py-1.5 bg-white/10 border border-white/20 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 shadow-lg backdrop-blur-sm">
                     DEMO
                 </a>
 
                 <!-- Desktop CTA - DEMO + Waitlist together -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <!-- DEMO Button for desktop -->
-                    <a href="https://demo.visare.co" class="px-5 py-2.5 bg-white/10 border border-white/20 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 shadow-lg backdrop-blur-sm">
-                        DEMO
-                    </a>
-                    
-                    <!-- Waitlist Button for desktop -->
-                    <a href="#" class="open-modal-btn px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-lg text-white font-medium hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-indigo-500/20">
-                        Join Waitlist
-                    </a>
-                </div>
+                <!-- Desktop CTA - Language + DEMO + Waitlist together -->
+<div class="hidden md:flex items-center space-x-4">
+    <!-- Language Dropdown -->
+  <!-- Language Dropdown -->
+<div class="language-dropdown">
+    <button class="px-5 py-2.5 bg-blue-900/20 border border-blue-700/30 rounded-lg text-white font-medium hover:bg-blue-800/30 transition-all duration-200 shadow-lg backdrop-blur-sm flex items-center gap-2">
+        <i data-lucide="languages"></i>
+    </button>
+    <div class="language-dropdown-content">
+        <a href="/">🇺🇸 English</a>
+        <a href="/es">🇪🇸 Español</a>
+    </div>
+</div>
+    <!-- DEMO Button for desktop -->
+    <a href="https://demo.visare.co" class="px-5 py-2.5 bg-white/10 border border-white/20 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 shadow-lg backdrop-blur-sm">
+        DEMO
+    </a>
+    
+    <!-- Waitlist Button for desktop -->
+    <a href="#" class="open-modal-btn px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-lg text-white font-medium hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-indigo-500/20">
+        Join Waitlist
+    </a>
+</div>
 
                 <!-- Mobile Menu Button -->
                 <label for="menu-toggle" class="md:hidden text-gray-400 hover:text-white cursor-pointer">
