@@ -112,13 +112,13 @@
 
 
         /* Language dropdown styles */
+/* Language dropdown styles */
 .language-dropdown {
     position: relative;
     display: inline-block;
 }
 
 .language-dropdown-content {
-    display: none;
     position: absolute;
     right: 0;
     background-color: rgba(0, 0, 0, 0.95);
@@ -129,6 +129,16 @@
     border-radius: 8px;
     z-index: 1;
     margin-top: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.language-dropdown-content.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .language-dropdown-content a {
@@ -152,10 +162,6 @@
 
 .language-dropdown-content a:last-child {
     border-radius: 0 0 8px 8px;
-}
-
-.language-dropdown:hover .language-dropdown-content {
-    display: block;
 }
     </style>
 </head>
@@ -779,6 +785,41 @@ try {
                 }
             });
         });
+
+        // Language dropdown functionality with fade-out delay
+document.addEventListener('DOMContentLoaded', function() {
+    const languageDropdowns = document.querySelectorAll('.language-dropdown');
+    
+    languageDropdowns.forEach(dropdown => {
+        const dropdownContent = dropdown.querySelector('.language-dropdown-content');
+        let hideTimeout;
+        
+        // Show dropdown on hover
+        dropdown.addEventListener('mouseenter', function() {
+            // Clear any existing hide timeout
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+            }
+            // Show dropdown
+            dropdownContent.classList.add('show');
+        });
+        
+        // Hide dropdown with delay on mouse leave
+        dropdown.addEventListener('mouseleave', function() {
+            // Set timeout to hide after 1 second
+            hideTimeout = setTimeout(() => {
+                dropdownContent.classList.remove('show');
+            }, 200); // 1 second delay
+        });
+        
+        // Cancel hide timeout if mouse re-enters
+        dropdown.addEventListener('mouseenter', function() {
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+            }
+        });
+    });
+});
     </script>
 </body>
 </html>
