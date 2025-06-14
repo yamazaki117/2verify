@@ -112,13 +112,13 @@
 
 
         /* Language dropdown styles */
+/* Language dropdown styles */
 .language-dropdown {
     position: relative;
     display: inline-block;
 }
 
 .language-dropdown-content {
-    display: none;
     position: absolute;
     right: 0;
     background-color: rgba(0, 0, 0, 0.95);
@@ -129,6 +129,16 @@
     border-radius: 8px;
     z-index: 1;
     margin-top: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.language-dropdown-content.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .language-dropdown-content a {
@@ -154,9 +164,10 @@
     border-radius: 0 0 8px 8px;
 }
 
-.language-dropdown:hover .language-dropdown-content {
+/* Remove the old hover rule */
+/* .language-dropdown:hover .language-dropdown-content {
     display: block;
-}
+} */
     </style>
 </head>
 <body class="min-h-screen bg-black">
@@ -532,7 +543,7 @@
 <div id="use-case" class="mx-auto mt-32 max-w-6xl">
     <h3 class="mb-12 text-4xl font-bold text-gray-200">Por qué Visare</h3>
 
-    <article class="rounded-3xl bg-neutral-900/60 backdrop-blur-sm p-8">
+    <article class="rounded-3xl bg-neutral-900/60 backdrop-blur-sm p-8 border border-neutral-700/30">
         <div class="flex flex-col sm:flex-row items-start gap-6 sm:gap-8">
             <!-- Móvil: Imagen y etiqueta en la misma fila -->
             <div class="flex items-start gap-4 w-full sm:contents">
@@ -560,7 +571,7 @@
                 </div>
                 
                 <p class="text-lg text-neutral-200 leading-relaxed">
-                    Gracias a la infraestructura nacional de identidad digital de España, Visare iguala las soluciones tradicionales de vídeo KYC (típicamente LoA 2) si el usuario tiene el registro básico de cl@ve y va más allá con alta garantía (LoA 3) si el usuario se dio de alta con DNIe o en persona—mientras que los usuarios solo necesitan autorizar desde la app cl@ve móvil. Mayores conversiones, una fracción del coste.
+                    Gracias a la infraestructura de identidad digital española, Visare iguala las garantías de soluciones tradicionales video-KYC (típicamente LoA 2) si el usuario tiene el nivel básico de registro en cl@ve y va más allá con alta garantía (LoA 3) si el usuario se dio de alta con DNIe o en persona—mientras que los usuarios solo necesitan autorizar desde la app cl@ve móvil. Mayores conversiones a una fracción del coste.
                 </p>
                 
                 <p class="text-neutral-400">
@@ -579,7 +590,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 
                 <!-- Main Content Column -->
-                <article class="rounded-2xl bg-neutral-950 p-8 backdrop-blur-sm max-w-3xl mx-auto">
+                <article class="rounded-2xl bg-neutral-950 p-8 backdrop-blur-sm max-w-3xl mx-auto border border-neutral-700/30">
                     <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-900/30 text-indigo-300 text-sm font-medium mb-4 border border-indigo-800/30">
                         <span class="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
                        De SAML restringido a OIDC 
@@ -593,26 +604,17 @@ El sistema cl@ve fue inicialmente diseñado únicamente para que los ciudadanos 
                         </span-->
                     </p>
                    <div class="space-y-4">
-    <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 ">
-        <div class="flex-1">
-            <span class="block text-neutral-200 font-medium mb-1">Integración OIDC</span>
-            <span class="text-sm text-neutral-400">Flujo OAuth 2.0/OIDC estándar - igual que cualquier otro IdP</span>
-        </div>
-        <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+     <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 ">
+        <div class="group flex w-full items-center gap-4 rounded-xl  transition-all "><i data-lucide="plug-zap" class="h-5 w-5 text-indigo-400"></i><div><span class="block text-neutral-200 font-medium">Integración OIDC</span><span class="text-sm text-neutral-400">Flujos estándares - igual que cualquier otro IdP</span></div></div>
+
     </div>
     <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 ">
-        <div class="flex-1">
-            <span class="block text-neutral-200 font-medium mb-1">Los usuarios autentican via cl@ve</span>
-            <span class="text-sm text-neutral-400">Experiencia fluída para los más de 20 millones de usuarios de cl@ve</span>
-        </div>
-        <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+         <div class="group flex w-full items-center gap-4 rounded-xl transition-all "><i data-lucide="smartphone-nfc" class="h-5 w-5 text-indigo-400"></i><div><span class="block text-neutral-200 font-medium">Los usuarios autentican via cl@ve</span><span class="text-sm text-neutral-400"> UX fluída para los más de 20M+ de usuarios de cl@ve</span></div></div>
+
     </div>
     <div class="group flex w-full items-center justify-between rounded-xl bg-neutral-700/50 p-4 transition-all hover:bg-neutral-700 ">
-        <div class="flex-1">
-            <span class="block text-neutral-200 font-medium mb-1">Datos verificados por el gobierno</span>
-            <span class="text-sm text-neutral-400">Datos de identidad oficial mediante consentimiento de usuario</span>
-        </div>
-        <i data-lucide="arrow-right" class="h-5 w-5 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1"></i>
+             <div class="group flex w-full items-center gap-4 rounded-xl  transition-all"><i data-lucide="database-zap" class="h-5 w-5 text-indigo-400"></i><div><span class="block text-neutral-200 font-medium">Datos verificados por el gobierno</span><span class="text-sm text-neutral-400"> Datos oficiales mediante consentimiento de usuario </span></div></div>
+
     </div>
 </div>
                 </article>
@@ -786,6 +788,40 @@ try {
                 }
             });
         });
+        // Language dropdown functionality with fade-out delay
+document.addEventListener('DOMContentLoaded', function() {
+    const languageDropdowns = document.querySelectorAll('.language-dropdown');
+    
+    languageDropdowns.forEach(dropdown => {
+        const dropdownContent = dropdown.querySelector('.language-dropdown-content');
+        let hideTimeout;
+        
+        // Show dropdown on hover
+        dropdown.addEventListener('mouseenter', function() {
+            // Clear any existing hide timeout
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+            }
+            // Show dropdown
+            dropdownContent.classList.add('show');
+        });
+        
+        // Hide dropdown with delay on mouse leave
+        dropdown.addEventListener('mouseleave', function() {
+            // Set timeout to hide after 1 second
+            hideTimeout = setTimeout(() => {
+                dropdownContent.classList.remove('show');
+            }, 200); // 1 second delay
+        });
+        
+        // Cancel hide timeout if mouse re-enters
+        dropdown.addEventListener('mouseenter', function() {
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+            }
+        });
+    });
+});
     </script>
 </body>
 </html>
